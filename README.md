@@ -1,4 +1,4 @@
-# vue-app
+# Smart-work test
 
 ## Project setup
 ```
@@ -16,11 +16,6 @@ npm run db:serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
 
 ### Customize configuration
