@@ -65,9 +65,9 @@
 
 <script>
 import PhoneBookList from '../components/PhoneBookList.vue'
-import PhoneService from './phone-book.js'
-const service = new PhoneService();
+import axios from "axios";
 
+const baseURL = "http://localhost:3001/phonebook";
 const options = [
   { value: null, text: 'Select number type'},
   { value: 'Work', text: 'Work' },
@@ -117,8 +117,10 @@ export default {
             if(Object.keys(isValid).length > 0){
               return this.error = isValid.message
             }
-            await service.saveContact(this.phoneListForm);
-            this.getList()
+            const res = await axios.post(baseURL, this.phoneListForm);
+            this.listUsers = [...this.listUsers, res.data];
+           
+            // this.getList()
             this.emptyForm()
             this.selected = null
         },
@@ -139,9 +141,13 @@ export default {
           }
           return error
         },
-        deleteNumber: function(id){
-            this.listUsers = this.listUsers.filter(i=>i.id !== id)
-            service.removeContact(id)
+        deleteNumber: async function(id){
+          try{
+            await axios.delete(baseURL+'/'+id);
+            this.getList()
+          }catch(error){
+            console.log(error)
+          }
         },
         editNumber: function (id){
             this.isOnUpdate = !this.isOnUpdate
@@ -153,13 +159,23 @@ export default {
             if(Object.keys(isValid).length > 0){
               return this.error = isValid.message
             }
-            service.updateContact(this.phoneListForm)
-            this.emptyForm()
-            this.isOnUpdate = !this.isOnUpdate
+            try{
+              await axios.put(`${baseURL}/${this.phoneListForm.id}`, this.phoneListForm);
+              this.emptyForm()
+              this.isOnUpdate = !this.isOnUpdate
+            }catch(error){
+              console.log(error)
+            }
+            
         },
-        getList: function(){
-            service.loadAll();
-            this.listUsers = service.getList();
+        getList: async function(){
+          try{
+            const res = await axios.get(baseURL);
+            this.listUsers = res.data;
+          }catch(error){
+            console.log(error)
+          }
+
         },
         emptyForm(){
             this.phoneListForm = {
