@@ -1,25 +1,3 @@
 {
-  "phonebook": [
-    {
-      "id": 2153,
-      "firstName": "Emine",
-      "lastName": "Isufi",
-      "phoneType": "Work",
-      "number": "0696111223"
-    },
-    {
-      "id": 8,
-      "firstName": "Refail ",
-      "lastName": "Gjeli",
-      "phoneType": "Home",
-      "number": "8238946784576"
-    },
-    {
-      "id": 1,
-      "firstName": "efwhgjh3fbg3",
-      "lastName": "ejfgik3fbgik",
-      "phoneType": "Mobile",
-      "number": "8993793333"
-    }
-  ]
+  "phonebook": []
 }
